@@ -1,4 +1,4 @@
-#include "BatControllerImpl.h"
+#include "BatController.h"
 
 BatControllerImpl BatController;
 

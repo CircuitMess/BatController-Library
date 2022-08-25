@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <CircuitOS.h>
-#include "src/BatControllerImpl.h"
+#include "src/BatController.h"
 
 void setup(){
 	BatController.begin();
