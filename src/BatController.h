@@ -4,9 +4,9 @@
 #include <Arduino.h>
 #include <CircuitOS.h>
 #include <Display/Display.h>
-#include <Input/InputI2C.h>
-#include <Input/I2cExpander.h>
+#include <Input/InputGPIO.h>
 #include "Pins.hpp"
+#include "BatControllerDisplay.h"
 
 class BatControllerImpl {
 public:
@@ -15,12 +15,11 @@ public:
 	void begin();
 
 	Display* getDisplay();
-	InputI2C* getInput();
+	Input* getInput();
 
 private:
 	Display display;
-	I2cExpander expander;
-	InputI2C input;
+	InputGPIO input;
 };
 
 extern BatControllerImpl BatController;
