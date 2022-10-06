@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 project(BatController-Library)
 set(PORT /dev/ttyS3)
-set(DEVICE cm:esp32:circuitpet)
+set(DEVICE cm:esp8266:byteboi)
 set(CMAKE_CXX_STANDARD 17)
 
 if(WIN32 OR CYGWIN)
@@ -27,7 +27,6 @@ include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/tools/sdk/incl
 include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/tools/sdk/include/freertos)
 include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/tools/sdk/include/spi_flash)
 include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/tools/sdk/include/nvs_flash)
-include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/tools/sdk/include/log)
 include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/tools/sdk/include/driver)
 include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/tools/sdk/include/driver/driver)
 
@@ -38,15 +37,17 @@ include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/libraries/SD/s
 include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/libraries/SPI/src)
 include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/libraries/WiFi/src)
 include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/libraries/SPIFFS/src)
+include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/libraries/JPEGDecoder/src)
+include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/libraries/OpenCV-ESP32/src)
 include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/libraries/LovyanGFX/src)
 include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/libraries/Update/src)
-include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/libraries/Chatter-Library/src)
-include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/libraries/glm)
-include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/libraries/I2C_BM8563/src)
+include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/libraries/CircuitOS/src)
+include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/libraries/ByteBoi-Library/src)
+include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/libraries/AsyncTCP/src)
+include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/libraries/ESPAsyncWebServer/src)
+include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/libraries/WiFi/src)
 
-include_directories(${ArduinoLibs}/CircuitPet-Library/src)
-include_directories(${ArduinoLibs}/CircuitOS/src)
-include_directories(${ArduinoLibs}/CircuitMess-Audio/src)
+include_directories(${ArduinoLibs}/Batmobile-Common/src)
 
 file(GLOB_RECURSE SOURCES "src/**.cpp" "src/**.c" "src/**.hpp" "src/**.h")
 
@@ -70,4 +71,4 @@ add_custom_target(CMUpload ALL
         DEPENDS CMBuild
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 
-add_executable(${CMAKE_PROJECT_NAME}.bin ${CMAKE_PROJECT_NAME}.ino ${SOURCES})
+add_executable(${CMAKE_PROJECT_NAME}.bin ${CMAKE_PROJECT_NAME}.ino ${SOURCES} src/Aruco/Aruco.cpp src/Aruco/Aruco.h)
