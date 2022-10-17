@@ -1,6 +1,7 @@
 #ifndef BATCONTROLLER_LIBRARY_COMMUNICATION_H
 #define BATCONTROLLER_LIBRARY_COMMUNICATION_H
 
+#include <BatCommon.h>
 #include <CommunicationCommon.h>
 
 class Communication : private CommunicationCommon{
