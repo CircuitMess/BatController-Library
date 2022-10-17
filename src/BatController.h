@@ -12,14 +12,52 @@ class BatControllerImpl {
 public:
 	BatControllerImpl();
 
-	void begin();
+	void begin(bool backlight = true);
 
 	Display* getDisplay();
-	Input* getInput();
+    Input* getInput();
+
+    /**
+	 * Set backlight brightness. Value 0 is minimum brightness so screen is still on.
+	 * @param brightness brightness value from 0 to 255, internally scaled to 51 - 255
+	 */
+    void setBrightness(uint8_t brightness);
+
+    /**
+     * Fades in from OFF to configured brightness.
+     */
+    void fadeIn(uint8_t delay = 2);
+
+    /**
+     * Fades out from configured brightness to OFF.
+     */
+    void fadeOut(uint8_t delay = 2);
+
+    /**
+     * Whether backlight is ON.
+     * @return False if backlight is completely off, true otherwise.
+     */
+    bool backlightPowered() const;
+
+    /**
+     * Turns off backlight.
+     */
+    void backlightOff();
 
 private:
 	Display display;
 	InputGPIO input;
+
+    bool pwmInited = false;
+    void initPWM();
+    void deinitPWM();
+
+    /**
+	 * Return backlight duty cycle for desired brightness.
+	 * @param brightness 0-255
+	 * @return duty cycle 0-255
+	 */
+    static uint8_t mapDuty(uint8_t brightness);
 };
 
 extern BatControllerImpl BatController;
