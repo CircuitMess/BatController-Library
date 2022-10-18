@@ -13,9 +13,8 @@ void BatControllerImpl::begin(bool backlight) {
 	display.clear(TFT_BLUE);
     display.commit();
 
-    //TODO: add input
-	//input.preregisterButtons({ BTN_A, BTN_B, BTN_LEFT, BTN_RIGHT });
-	//LoopManager::addListener(&input);
+	input.preregisterButtons({ BTN_UP, BTN_DOWN, BTN_LEFT, BTN_RIGHT, BTN_A, BTN_B, BTN_C });
+	LoopManager::addListener(&input);
 
 	pinMode(PIN_BL, OUTPUT);
 	digitalWrite(PIN_BL, false);
