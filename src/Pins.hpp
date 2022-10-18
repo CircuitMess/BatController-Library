@@ -22,7 +22,7 @@
 
 #define PIN_BL 0
 #define PIN_BUZZ 19
-#define PIN_BATT 34
+#define PIN_BATT 39
 #define PIN_CHARGE 12
 
 
