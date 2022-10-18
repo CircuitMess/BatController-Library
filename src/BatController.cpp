@@ -8,6 +8,9 @@ BatControllerImpl::BatControllerImpl() : display(160, 128, -1, -3){
 }
 
 void BatControllerImpl::begin(bool backlight) {
+	pinMode(PIN_BL, OUTPUT);
+	digitalWrite(PIN_BL, HIGH);
+
 	Settings.begin();
 
 	display.getTft()->setPanel(BatControllerDisplay::panel1());
@@ -18,9 +21,6 @@ void BatControllerImpl::begin(bool backlight) {
 
 	input.preregisterButtons({ BTN_UP, BTN_DOWN, BTN_LEFT, BTN_RIGHT, BTN_A, BTN_B, BTN_C });
 	LoopManager::addListener(&input);
-
-	pinMode(PIN_BL, OUTPUT);
-	digitalWrite(PIN_BL, false);
 
     if(backlight){
         fadeIn();
@@ -58,6 +58,15 @@ void BatControllerImpl::fadeOut(uint8_t d){
     if(!pwmInited){
         initPWM();
     }
+
+	uint8_t dutyOn = mapDuty(Settings.get().screenBrightness);
+
+	for(int i = 0; i <= 255; i++){
+		uint8_t val = map(i, 0, 255, dutyOn, 255);
+		ledcWrite(6, val);
+		delay(d);
+	}
+
     deinitPWM();
 }
 
@@ -66,6 +75,13 @@ void BatControllerImpl::fadeIn(uint8_t d){
         initPWM();
     }
 
+	uint8_t dutyOn = mapDuty(Settings.get().screenBrightness);
+
+	for(int i = 0; i <= 255; i++){
+		uint8_t val = map(i, 0, 255, 255, dutyOn);
+		ledcWrite(6, val);
+		delay(d);
+	}
 }
 
 void BatControllerImpl::initPWM() {
@@ -81,5 +97,5 @@ void BatControllerImpl::deinitPWM() {
 }
 
 uint8_t BatControllerImpl::mapDuty(uint8_t brightness) {
-    return 0;
+	return map(brightness, 0, 255, 240, 0);
 }
