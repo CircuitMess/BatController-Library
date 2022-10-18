@@ -7,9 +7,6 @@ BatControllerImpl::BatControllerImpl() : display(160, 128, -1, -3){
 }
 
 void BatControllerImpl::begin(bool backlight) {
-    analogSetAttenuation(ADC_6db);
-
-
 	display.getTft()->setPanel(BatControllerDisplay::panel1());
     display.begin();
     display.getTft()->setRotation(1);
