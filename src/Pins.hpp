@@ -16,16 +16,9 @@
 #define TFT_RESET 13
 #define TFT_DC 15
 
-#define RGB_R 21
-#define RGB_G 22
-#define RGB_B 23
-
 #define PIN_BL 0
 #define PIN_BUZZ 19
 #define PIN_BATT 39
 #define PIN_CHARGE 12
-
-
-
 
 #endif //BATCONTROLLER_LIBRARY_PINS_HPP
