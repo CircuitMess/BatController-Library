@@ -1,5 +1,6 @@
 #include "BatController.h"
 #include <Loop/LoopManager.h>
+#include "Settings.h"
 
 BatControllerImpl BatController;
 
@@ -7,6 +8,8 @@ BatControllerImpl::BatControllerImpl() : display(160, 128, -1, -3){
 }
 
 void BatControllerImpl::begin(bool backlight) {
+	Settings.begin();
+
 	display.getTft()->setPanel(BatControllerDisplay::panel1());
     display.begin();
     display.getTft()->setRotation(1);
