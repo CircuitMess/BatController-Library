@@ -38,7 +38,6 @@ void Aruco::generate(uint16_t id, Color* buffer, uint8_t scale){
     for(int i = 0; i < side; i++){
         for(int j = 0; j < side; j++){
             uint8_t white = bits[i*side + j];
-            Serial.printf("%d ",white);
             if(white == 0)	continue;
 
             uint16_t index = scale*scale*(i+1)*(2+side) + scale*(j+1);
