@@ -1,0 +1,11 @@
+#ifndef BATCONTROLLER_LIBRARY_COMLISTENER_H
+#define BATCONTROLLER_LIBRARY_COMLISTENER_H
+
+
+class ComListener {
+public:
+	virtual void onBattery();
+};
+
+
+#endif //BATCONTROLLER_LIBRARY_COMLISTENER_H
