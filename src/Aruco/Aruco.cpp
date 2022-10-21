@@ -33,8 +33,8 @@ void Aruco::generate(uint16_t id, Color* buffer, uint8_t scale){
         }
     }
     memset(buffer, TFT_BLACK, (2+side) * (2+side) * sizeof(Color) * scale);
+
     //	Tiles
-    Serial.println();
     for(int i = 0; i < side; i++){
         for(int j = 0; j < side; j++){
             uint8_t white = bits[i*side + j];
