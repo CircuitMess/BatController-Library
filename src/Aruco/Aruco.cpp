@@ -47,7 +47,6 @@ void Aruco::generate(uint16_t id, Color* buffer, uint8_t scale){
                 }
             }
         }
-        Serial.println();
     }
 
 }
