@@ -1,5 +1,6 @@
 #include "BatController.h"
 #include <Loop/LoopManager.h>
+#include <SPIFFS.h>
 #include "Settings.h"
 
 BatControllerImpl BatController;
@@ -11,6 +12,8 @@ void BatControllerImpl::begin(bool backlight) {
 	pinMode(PIN_BL, OUTPUT);
 	digitalWrite(PIN_BL, HIGH);
 
+
+	SPIFFS.begin();
 	Settings.begin();
 
 	display.getTft()->setPanel(BatControllerDisplay::panel1());
