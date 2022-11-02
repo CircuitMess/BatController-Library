@@ -11,14 +11,12 @@ public:
 	Communication();
 	~Communication();
 	void begin();
-
 	void sendDriveMode();
 	void sendVolume(uint8_t percent);
 	void sendDriveDir(uint8_t hor, uint8_t ver);
 	void sendDriveSpeed(uint8_t percent);
 	void sendBallHue(uint8_t hue);
 	void sendHonk();
-
 	void addListener(ComListener* listener);
 	void removeListener(ComListener* listener);
 
