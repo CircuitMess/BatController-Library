@@ -9,7 +9,7 @@ Communication::Communication(){}
 Communication::~Communication(){}
 
 void Communication::begin(){
-	server = new AsyncServer(port);
+	server = new AsyncServer(controlPort);
 
 	server->onClient([this](void* arg, AsyncClient* client){
 		setClient(std::unique_ptr<AsyncClient>(client));
