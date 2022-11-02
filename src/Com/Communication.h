@@ -10,20 +10,25 @@ class Communication : public CommunicationCommon, private WithListeners<ComListe
 public:
 	Communication();
 	~Communication();
+
 	void begin();
+
 	void sendDriveMode();
 	void sendVolume(uint8_t percent);
 	void sendDriveDir(uint8_t hor, uint8_t ver);
 	void sendDriveSpeed(uint8_t percent);
 	void sendBallHue(uint8_t hue);
 	void sendHonk();
+
 	void addListener(ComListener* listener);
 	void removeListener(ComListener* listener);
 
 private:
-	AsyncServer* server = nullptr;
 	bool isWiFiConnected() override;
+
 	void processPacket(const ControlPacket& packet) override;
+
+	AsyncServer* server = nullptr;
 };
 
 extern Communication Com;
