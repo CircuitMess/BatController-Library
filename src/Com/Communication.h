@@ -12,6 +12,7 @@ public:
 	~Communication();
 
 	void begin();
+	AsyncServer* getServer();
 
 	void sendDriveMode();
 	void sendVolume(uint8_t percent);

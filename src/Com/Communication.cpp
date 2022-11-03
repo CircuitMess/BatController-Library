@@ -10,12 +10,11 @@ Communication::~Communication(){}
 
 void Communication::begin(){
 	server = new AsyncServer(controlPort);
-
-	server->onClient([this](void* arg, AsyncClient* client){
-		setClient(std::unique_ptr<AsyncClient>(client));
-	}, nullptr);
-
 	server->begin();
+}
+
+AsyncServer* Communication::getServer(){
+	return server;
 }
 
 void Communication::addListener(ComListener* listener){
