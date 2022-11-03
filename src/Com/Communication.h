@@ -5,6 +5,7 @@
 #include <CommunicationCommon.h>
 #include <Util/WithListeners.h>
 #include "ComListener.h"
+#include <DriveMode.h>
 
 class Communication : public CommunicationCommon, private WithListeners<ComListener> {
 public:
@@ -14,12 +15,21 @@ public:
 	void begin();
 	AsyncServer* getServer();
 
-	void sendDriveMode();
+	void sendDriveMode(DriveMode mode);
 	void sendVolume(uint8_t percent);
-	void sendDriveDir(uint8_t hor, uint8_t ver);
+
+	/**
+	 * @param dir Bitwise OR-ed values of direction buttons,
+	 * lowest to highest bit represents forward, backward, left, right, respectively
+	 */
+	void sendDriveDir(uint8_t direction);
 	void sendDriveSpeed(uint8_t percent);
+	/**
+	 * @param hue HSV hue divided by 2 [0-180]
+	 */
 	void sendBallHue(uint8_t hue);
 	void sendHonk();
+	void sendBoost(bool boost);
 
 	void addListener(ComListener* listener);
 	void removeListener(ComListener* listener);
