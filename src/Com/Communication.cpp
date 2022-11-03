@@ -49,26 +49,26 @@ void Communication::sendDriveMode(DriveMode mode){
 }
 
 void Communication::sendVolume(uint8_t percent){
-	ControlPacket packet{ComType::DriveMode, percent};
+	ControlPacket packet{ComType::Volume, percent};
 	sendPacket(packet);
 }
 
 void Communication::sendDriveDir(uint8_t direction){
-	ControlPacket packet{ComType::DriveMode, direction};
+	ControlPacket packet{ComType::DriveDir, direction};
 	sendPacket(packet);
 }
 
 void Communication::sendDriveSpeed(uint8_t percent){
-	ControlPacket packet{ComType::DriveMode, percent};
+	ControlPacket packet{ComType::DriveSpeed, percent};
 	sendPacket(packet);
 }
 
 void Communication::sendBallHue(uint8_t hue){
-	ControlPacket packet{ComType::DriveMode, hue};
+	ControlPacket packet{ComType::BallHue, hue};
 	sendPacket(packet);
 }
 
 void Communication::sendBoost(bool boost){
-	ControlPacket packet{ComType::DriveMode, boost};
+	ControlPacket packet{ComType::Boost, boost};
 	sendPacket(packet);
 }
