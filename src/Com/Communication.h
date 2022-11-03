@@ -9,7 +9,7 @@
 class Communication : public CommunicationCommon, private WithListeners<ComListener> {
 public:
 	Communication();
-	~Communication();
+	~Communication() override;
 
 	void begin();
 	AsyncServer* getServer();

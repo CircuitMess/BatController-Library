@@ -9,6 +9,8 @@ Communication::Communication(){}
 Communication::~Communication(){}
 
 void Communication::begin(){
+	if(server) return;
+
 	server = new AsyncServer(controlPort);
 	server->begin();
 }
