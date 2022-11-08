@@ -28,6 +28,7 @@ include_directories(${Arduino15}/packages/cm/hardware/esp32/1.6.1/tools/sdk/incl
 include_directories(${Arduino15}/packages/cm/hardware/esp32/1.6.1/tools/sdk/include/spi_flash)
 include_directories(${Arduino15}/packages/cm/hardware/esp32/1.6.1/tools/sdk/include/nvs_flash)
 include_directories(${Arduino15}/packages/cm/hardware/esp32/1.6.1/tools/sdk/include/driver)
+include_directories(${Arduino15}/packages/cm/hardware/esp32/1.6.1/tools/sdk/include/soc)
 include_directories(${Arduino15}/packages/cm/hardware/esp32/1.6.1/tools/sdk/include/driver/driver)
 include_directories(${Arduino15}/packages/cm/hardware/esp32/1.6.1/tools/sdk/include/log)
 
