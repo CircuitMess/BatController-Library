@@ -2,6 +2,7 @@
 #include <Loop/LoopManager.h>
 #include <SPIFFS.h>
 #include "Settings.h"
+#include "BatteryService.h"
 
 BatControllerImpl BatController;
 
@@ -21,6 +22,8 @@ void BatControllerImpl::begin(bool backlight) {
     display.getTft()->setRotation(1);
 	display.clear(TFT_BLUE);
     display.commit();
+
+	Battery.begin();
 
 	input.preregisterButtons({ BTN_UP, BTN_DOWN, BTN_LEFT, BTN_RIGHT, BTN_A, BTN_B, BTN_C });
 	LoopManager::addListener(&input);
