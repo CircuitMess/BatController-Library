@@ -4,7 +4,8 @@
 
 class ComListener {
 public:
-	virtual void onBattery();
+	virtual void onBattery(uint8_t percent);
+	virtual void onSignalStrength(uint8_t percent);
 };
 
 
