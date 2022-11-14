@@ -32,9 +32,17 @@ bool Communication::isWiFiConnected(){
 }
 
 void Communication::processPacket(const ControlPacket& packet){
-	if(packet.type != ComType::Battery) return;
-	WithListeners<ComListener>::iterateListeners([](ComListener* listener){
-		listener->onBattery();
+	WithListeners<ComListener>::iterateListeners([packet](ComListener* listener){
+		switch(packet.type){
+			case ComType::Battery:
+				listener->onBattery(packet.data);
+			break;
+			case ComType::SignalStrength:
+				listener->onSignalStrength(packet.data);
+			break;
+			default:
+				break;
+		}
 	});
 }
 
