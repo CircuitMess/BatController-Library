@@ -32,7 +32,7 @@ void BatteryService::begin(){
 }
 
 void BatteryService::loop(uint micros){
-	if(millis() - measureTime <= 1000.0f * MeasureInverval / MeasureCount) return;
+	if(millis() - measureTime <= 1000.0f * MeasureInterval / MeasureCount) return;
 
 	measureVoltage += analogRead(PIN_BATT);
 	measureTime = millis();

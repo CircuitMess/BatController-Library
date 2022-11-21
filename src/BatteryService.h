@@ -25,7 +25,7 @@ public:
 	bool charging() const;
 
 private:
-	static constexpr float MeasureInverval = 2;
+	static constexpr float MeasureInterval = 2;
 	static constexpr uint8_t MeasureCount = 30;
 
 	uint32_t measureVoltage = 0;
