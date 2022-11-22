@@ -35,7 +35,7 @@ void Communication::processPacket(const ControlPacket& packet){
 	WithListeners<ComListener>::iterateListeners([packet](ComListener* listener){
 		switch(packet.type){
 			case ComType::Battery:
-				listener->onBattery(packet.data);
+				listener->onBattery(packet.data, packet.data == UINT8_MAX);
 			break;
 			case ComType::SignalStrength:
 				listener->onSignalStrength(packet.data);
