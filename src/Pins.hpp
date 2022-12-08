@@ -20,4 +20,7 @@
 #define PIN_BATT 39
 #define PIN_CHARGE 12
 
+#define I2S_SDA 19
+#define I2S_SCL 18
+
 #endif //BATCONTROLLER_LIBRARY_PINS_HPP

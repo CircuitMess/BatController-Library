@@ -1,6 +1,7 @@
 #include "BatController.h"
 #include <Loop/LoopManager.h>
 #include <SPIFFS.h>
+#include <Wire.h>
 #include "Settings.h"
 #include "BatteryService.h"
 
@@ -13,7 +14,7 @@ void BatControllerImpl::begin(bool backlight) {
 	pinMode(PIN_BL, OUTPUT);
 	digitalWrite(PIN_BL, HIGH);
 
-
+	Wire.begin(I2S_SDA, I2S_SCL);
 	SPIFFS.begin();
 	Settings.begin();
 
