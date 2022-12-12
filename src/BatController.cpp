@@ -14,7 +14,7 @@ void BatControllerImpl::begin(bool backlight) {
 	pinMode(PIN_BL, OUTPUT);
 	digitalWrite(PIN_BL, HIGH);
 
-	Wire.begin(I2S_SDA, I2S_SCL);
+	Wire.begin(I2C_SDA, I2C_SCL);
 	SPIFFS.begin();
 	Settings.begin();
 
