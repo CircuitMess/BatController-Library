@@ -30,6 +30,8 @@ public:
 	void sendBallHue(uint8_t hue);
 	void sendHonk();
 	void sendBoost(bool boost);
+	void sendSettingsSound();
+	void sendDisconnectRequest();
 
 	void addListener(ComListener* listener);
 	void removeListener(ComListener* listener);

@@ -80,3 +80,13 @@ void Communication::sendBoost(bool boost){
 	ControlPacket packet{ComType::Boost, boost};
 	sendPacket(packet);
 }
+
+void Communication::sendSettingsSound(){
+	ControlPacket packet{ComType::SettingsSound, 0};
+	sendPacket(packet);
+}
+
+void Communication::sendDisconnectRequest(){
+	ControlPacket packet{ComType::Disconnect, 0};
+	sendPacket(packet);
+}
