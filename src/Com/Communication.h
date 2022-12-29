@@ -32,16 +32,23 @@ public:
 	void sendBoost(bool boost);
 	void sendSettingsSound();
 	void sendDisconnectRequest();
+	void sendShutdown(std::function<void(bool)> callback);
 
 	void addListener(ComListener* listener);
 	void removeListener(ComListener* listener);
 
 private:
+	void onLoop(uint micros) override;
 	bool isWiFiConnected() override;
 
 	void processPacket(const ControlPacket& packet) override;
 
 	AsyncServer* server = nullptr;
+
+	static constexpr uint32_t shutdownAckTimeout = 3000000;
+	std::function<void(bool)> shutdownCallback = nullptr;
+	uint32_t ackTimer = 0;
+	bool ackWait = false;
 };
 
 extern Communication Com;
