@@ -89,6 +89,16 @@ void Communication::sendBoost(bool boost){
 	sendPacket(packet);
 }
 
+void Communication::sendSettingsSound(){
+	ControlPacket packet{ComType::SettingsSound, 0};
+	sendPacket(packet);
+}
+
+void Communication::sendDisconnectRequest(){
+	ControlPacket packet{ComType::Disconnect, 0};
+	sendPacket(packet);
+}
+
 void Communication::sendShutdown(std::function<void(bool)> callback){
 	ControlPacket packet{ ComType::Shutdown, 0 };
 	sendPacket(packet);

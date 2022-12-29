@@ -11,7 +11,7 @@ extern const char* ShutdownText[SHUTDOWN_STEPS];
 struct SettingsData {
 	uint8_t soundVolume = 100;
 	uint32_t shutdownTime = 2;
-	uint8_t screenBrightness = 200;
+	uint8_t screenBrightness = 180;
 	bool hwTested = false;
 };
 
