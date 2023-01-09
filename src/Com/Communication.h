@@ -7,6 +7,10 @@
 #include "ComListener.h"
 #include <DriveMode.h>
 
+enum class ComMode : uint8_t {
+	Direct, External
+};
+
 class Communication : public CommunicationCommon, private WithListeners<ComListener> {
 public:
 	Communication();
@@ -14,6 +18,12 @@ public:
 
 	void begin();
 	AsyncServer* getServer();
+
+	/**
+	 * Sets Communication mode, defaults to Direct mode
+	 * @param mode Direct mode (default) - host a WiFi AP, External mode - connect to an existing WiFi network
+	 */
+	void setMode(ComMode mode);
 
 	void sendDriveMode(DriveMode mode);
 	void sendVolume(uint8_t percent);
@@ -49,6 +59,8 @@ private:
 	std::function<void(bool)> shutdownCallback = nullptr;
 	uint32_t ackTimer = 0;
 	bool ackWait = false;
+
+	ComMode mode = ComMode::Direct;
 };
 
 extern Communication Com;

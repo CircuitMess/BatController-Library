@@ -28,7 +28,11 @@ void Communication::removeListener(ComListener* listener){
 }
 
 bool Communication::isWiFiConnected(){
-	return WiFi.softAPgetStationNum() == 1;
+	if(mode == ComMode::Direct){
+		return (WiFi.softAPgetStationNum() == 1);
+	}else if(mode == ComMode::External){
+		return WiFi.isConnected();
+	}
 }
 
 void Communication::processPacket(const ControlPacket& packet){
@@ -90,12 +94,12 @@ void Communication::sendBoost(bool boost){
 }
 
 void Communication::sendSettingsSound(){
-	ControlPacket packet{ComType::SettingsSound, 0};
+	ControlPacket packet{ ComType::SettingsSound, 0 };
 	sendPacket(packet);
 }
 
 void Communication::sendDisconnectRequest(){
-	ControlPacket packet{ComType::Disconnect, 0};
+	ControlPacket packet{ ComType::Disconnect, 0 };
 	sendPacket(packet);
 }
 
@@ -115,4 +119,14 @@ void Communication::onLoop(uint micros){
 		ackWait = false;
 		if(shutdownCallback) shutdownCallback(false);
 	}
+}
+
+void Communication::setMode(ComMode mode){
+	if(this->mode == mode) return;
+
+	if(isConnected()){
+		end();
+	}
+	this->mode = mode;
+	begin();
 }
