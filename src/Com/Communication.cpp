@@ -112,7 +112,7 @@ void Communication::sendShutdown(std::function<void(bool)> callback){
 }
 
 void Communication::sendDance(DanceType danceIndex) {
-    ControlPacket packet{ ComType::DanceType, (uint8_t)danceIndex };
+    ControlPacket packet{ ComType::Dance, (uint8_t)danceIndex };
     sendPacket(packet);
 }
 
