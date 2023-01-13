@@ -67,7 +67,9 @@ uint8_t BatteryService::getLevel() const{
 		return 1;
 	}else if(percentage < 10){
 		return 0;
-	}
+	}else if(percentage <= 5){
+        return 8; //8 indicates a blinking state
+    }
 }
 
 uint8_t BatteryService::getPercentage() const{
