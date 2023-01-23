@@ -4,7 +4,9 @@
 
 Communication Com;
 
-Communication::Communication(){}
+Communication::Communication(){
+	WithListeners<ComListener>::reserve(16);
+}
 
 Communication::~Communication(){}
 
