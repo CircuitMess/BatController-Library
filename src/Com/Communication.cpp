@@ -113,6 +113,11 @@ void Communication::sendShutdown(std::function<void(bool)> callback){
 	shutdownCallback = callback;
 }
 
+void Communication::sendDance(DanceType danceIndex) {
+    ControlPacket packet{ ComType::Dance, (uint8_t)danceIndex };
+    sendPacket(packet);
+}
+
 void Communication::onLoop(uint micros){
 	if(!ackWait) return;
 	ackTimer += micros;
