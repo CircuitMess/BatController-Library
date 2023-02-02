@@ -36,6 +36,4 @@ private:
 
 };
 
-extern BatteryService Battery;
-
 #endif //BATCONTROLLER_LIBRARY_BATTERYSERVICE_H

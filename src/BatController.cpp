@@ -7,6 +7,8 @@
 #include <WiFi.h>
 
 BatControllerImpl BatController;
+BatteryService Battery;
+Communication Com;
 
 BatControllerImpl::BatControllerImpl() : display(160, 128, -1, -3){
 }

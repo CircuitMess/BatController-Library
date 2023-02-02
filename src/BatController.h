@@ -7,6 +7,8 @@
 #include <Input/InputGPIO.h>
 #include "Pins.hpp"
 #include "BatControllerDisplay.h"
+#include "BatteryService.h"
+#include "Com/Communication.h"
 
 class BatControllerImpl {
 public:
@@ -63,5 +65,7 @@ private:
 };
 
 extern BatControllerImpl BatController;
+extern BatteryService Battery;
+extern Communication Com;
 
 #endif //BATCONTROLLER_LIBRARY_BATCONTROLLER_H

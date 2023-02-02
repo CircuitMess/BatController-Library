@@ -1,9 +1,6 @@
 #include "Communication.h"
 #include <NetworkConfig.h>
 
-
-Communication Com;
-
 Communication::Communication(){
 	WithListeners<ComListener>::reserve(16);
 }
