@@ -49,23 +49,7 @@ void BatteryService::loop(uint micros){
 
 uint8_t BatteryService::getLevel() const{
 	uint8_t percentage = getPercentage();
-	if(percentage > 90){
-		return 7;
-	}else if(percentage > 78){
-		return 6;
-	}else if(percentage > 66){
-		return 5;
-	}else if(percentage > 54){
-		return 4;
-	}else if(percentage > 42){
-		return 3;
-	}else if(percentage > 30){
-		return 2;
-	}else if(percentage >= 10){
-		return 1;
-	}else if(percentage < 10){
-		return 0;
-	}
+	return percToLevel(percentage);
 }
 
 uint8_t BatteryService::getPercentage() const{
@@ -91,4 +75,24 @@ int16_t BatteryService::getVoltOffset(){
 
 bool BatteryService::charging() const{
 	return !digitalRead(PIN_CHARGE);
+}
+
+uint8_t BatteryService::percToLevel(uint8_t percentage){
+	if(percentage > 90){
+		return 7;
+	}else if(percentage > 78){
+		return 6;
+	}else if(percentage > 66){
+		return 5;
+	}else if(percentage > 54){
+		return 4;
+	}else if(percentage > 42){
+		return 3;
+	}else if(percentage > 30){
+		return 2;
+	}else if(percentage >= 10){
+		return 1;
+	}else if(percentage < 10){
+		return 0;
+	}
 }

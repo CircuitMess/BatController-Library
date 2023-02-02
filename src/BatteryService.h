@@ -24,6 +24,8 @@ public:
 
 	bool charging() const;
 
+	static uint8_t percToLevel(uint8_t percentage);
+
 private:
 	static constexpr float MeasureInterval = 2;
 	static constexpr uint8_t MeasureCount = 30;
