@@ -44,6 +44,8 @@ public:
      */
     void backlightOff();
 
+    void shutdown();
+
 private:
 	Display display;
 	InputGPIO input;

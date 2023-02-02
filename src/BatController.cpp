@@ -4,6 +4,7 @@
 #include <Wire.h>
 #include "Settings.h"
 #include "BatteryService.h"
+#include <WiFi.h>
 
 BatControllerImpl BatController;
 
@@ -105,4 +106,22 @@ void BatControllerImpl::deinitPWM() {
 
 uint8_t BatControllerImpl::mapDuty(uint8_t brightness) {
 	return map(brightness, 0, 255, 240, 0);
+}
+
+void BatControllerImpl::shutdown() {
+    if(backlightPowered()){
+       fadeOut();
+    }
+
+    adc_power_off();
+    WiFi.disconnect(true);
+    WiFi.mode(WIFI_OFF);
+
+    ledcDetachPin(PIN_BL);
+
+    esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_SLOW_MEM, ESP_PD_OPTION_OFF);
+    esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_FAST_MEM, ESP_PD_OPTION_OFF);
+    esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_PERIPH, ESP_PD_OPTION_OFF);
+    esp_sleep_disable_wakeup_source(ESP_SLEEP_WAKEUP_ALL);
+    esp_deep_sleep_start();
 }
