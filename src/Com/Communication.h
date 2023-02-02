@@ -65,4 +65,6 @@ private:
 	ComMode mode = ComMode::Direct;
 };
 
+extern Communication Com;
+
 #endif //BATCONTROLLER_LIBRARY_COMMUNICATION_H
