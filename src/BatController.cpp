@@ -24,7 +24,7 @@ void BatControllerImpl::begin(bool backlight) {
 	display.getTft()->setPanel(BatControllerDisplay::panel1());
     display.begin();
     display.getTft()->setRotation(1);
-	display.clear(TFT_BLUE);
+	display.clear(TFT_BLACK);
     display.commit();
 
 	Battery.begin();
