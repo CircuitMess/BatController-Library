@@ -102,6 +102,27 @@ void Communication::sendDisconnectRequest(){
 	sendPacket(packet);
 }
 
+void Communication::sendHeadlights(uint8_t val){
+	ControlPacket packet{ ComType::Headlights, val };
+	sendPacket(packet);
+}
+
+void Communication::sendTaillights(uint8_t val){
+	ControlPacket packet{ ComType::Taillights, val };
+	sendPacket(packet);
+}
+
+void Communication::sendUnderlights(uint8_t color){
+	ControlPacket packet{ ComType::Underlights, color };
+	sendPacket(packet);
+}
+
+
+void Communication::sendSoundEffect(uint8_t sample){
+	ControlPacket packet{ ComType::SoundEffect, sample };
+	sendPacket(packet);
+}
+
 void Communication::sendShutdown(std::function<void(bool)> callback){
 	ControlPacket packet{ ComType::Shutdown, 0 };
 	sendPacket(packet);

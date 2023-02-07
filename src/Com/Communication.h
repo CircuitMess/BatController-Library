@@ -45,6 +45,10 @@ public:
 	void sendDisconnectRequest();
 	void sendShutdown(std::function<void(bool)> callback);
     void sendDance(DanceType danceIndex);
+	void sendHeadlights(uint8_t val);
+	void sendTaillights(uint8_t val);
+	void sendUnderlights(uint8_t color);
+	void sendSoundEffect(uint8_t sample);
 
 	void addListener(ComListener* listener);
 	void removeListener(ComListener* listener);
