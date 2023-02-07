@@ -28,7 +28,17 @@ void Communication::removeListener(ComListener* listener){
 
 bool Communication::isWiFiConnected(){
 	if(mode == ComMode::Direct){
-		return (WiFi.softAPgetStationNum() == 1);
+		if(signalStrengthTime < signalStrengthTimeout){
+			return (WiFi.softAPgetStationNum() == 1);
+		}else{
+			bool signalStrengthCheck = (signalStrengthReceived > 0);
+			signalStrengthTime = 0;
+			signalStrengthReceived = 0;
+
+			if(!signalStrengthCheck) Serial.println("signal strength check failed");
+
+			return (WiFi.softAPgetStationNum() == 1) && signalStrengthCheck;
+		}
 	}else if(mode == ComMode::External){
 		return WiFi.isConnected();
 	}
@@ -41,6 +51,8 @@ void Communication::processPacket(const ControlPacket& packet){
 			if(shutdownCallback) shutdownCallback(true);
 		}
 		return;
+	}else if(packet.type == ComType::SignalStrength){
+		signalStrengthReceived++;
 	}
 
 	WithListeners<ComListener>::iterateListeners([packet](ComListener* listener){
@@ -110,12 +122,14 @@ void Communication::sendShutdown(std::function<void(bool)> callback){
 	shutdownCallback = callback;
 }
 
-void Communication::sendDance(DanceType danceIndex) {
-    ControlPacket packet{ ComType::Dance, (uint8_t)danceIndex };
-    sendPacket(packet);
+void Communication::sendDance(DanceType danceIndex){
+	ControlPacket packet{ ComType::Dance, (uint8_t) danceIndex };
+	sendPacket(packet);
 }
 
 void Communication::onLoop(uint micros){
+	signalStrengthTime += micros;
+
 	if(!ackWait) return;
 	ackTimer += micros;
 
@@ -133,4 +147,14 @@ void Communication::setMode(ComMode mode){
 	}
 	this->mode = mode;
 	begin();
+}
+
+void Communication::onConnect(){
+	signalStrengthReceived = 0;
+	signalStrengthTime = 0;
+}
+
+void Communication::onDisconnect(){
+	signalStrengthReceived = 0;
+	signalStrengthTime = 0;
 }

@@ -44,7 +44,7 @@ public:
 	void sendSettingsSound();
 	void sendDisconnectRequest();
 	void sendShutdown(std::function<void(bool)> callback);
-    void sendDance(DanceType danceIndex);
+	void sendDance(DanceType danceIndex);
 
 	void addListener(ComListener* listener);
 	void removeListener(ComListener* listener);
@@ -52,6 +52,9 @@ public:
 private:
 	void onLoop(uint micros) override;
 	bool isWiFiConnected() override;
+
+	void onConnect() override;
+	void onDisconnect() override;
 
 	void processPacket(const ControlPacket& packet) override;
 
@@ -63,6 +66,10 @@ private:
 	bool ackWait = false;
 
 	ComMode mode = ComMode::Direct;
+
+	uint8_t signalStrengthReceived = 0;
+	uint32_t signalStrengthTime = 0;
+	static constexpr uint32_t signalStrengthTimeout = 5000000;
 };
 
 extern Communication Com;
