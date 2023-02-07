@@ -1,10 +1,9 @@
 #include "Communication.h"
 #include <NetworkConfig.h>
 
-
-Communication Com;
-
-Communication::Communication(){}
+Communication::Communication(){
+	WithListeners<ComListener>::reserve(16);
+}
 
 Communication::~Communication(){}
 
@@ -130,6 +129,11 @@ void Communication::sendShutdown(std::function<void(bool)> callback){
 	ackWait = true;
 	ackTimer = 0;
 	shutdownCallback = callback;
+}
+
+void Communication::sendDance(DanceType danceIndex) {
+    ControlPacket packet{ ComType::Dance, (uint8_t)danceIndex };
+    sendPacket(packet);
 }
 
 void Communication::onLoop(uint micros){

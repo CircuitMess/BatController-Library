@@ -6,6 +6,7 @@
 #include <Util/WithListeners.h>
 #include "ComListener.h"
 #include <DriveMode.h>
+#include <DanceType.h>
 
 enum class ComMode : uint8_t {
 	Direct, External
@@ -43,6 +44,7 @@ public:
 	void sendSettingsSound();
 	void sendDisconnectRequest();
 	void sendShutdown(std::function<void(bool)> callback);
+    void sendDance(DanceType danceIndex);
 	void sendHeadlights(uint8_t val);
 	void sendTaillights(uint8_t val);
 	void sendUnderlights(uint8_t color);

@@ -13,8 +13,8 @@ struct SettingsData {
 	uint32_t shutdownTime = 2;
 	uint8_t screenBrightness = 180;
 	bool hwTested = false;
-	char password[64] = {0};
-	char ssid[33] = {0};
+	char ssid[24] = {0};
+	char password[23] = {0};
 };
 
 class SettingsImpl {
