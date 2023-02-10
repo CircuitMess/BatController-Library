@@ -49,6 +49,7 @@ public:
 	void sendTaillights(uint8_t val);
 	void sendUnderlights(uint8_t color);
 	void sendSoundEffect(uint8_t sample);
+	void sendOverrideSound(bool manual);
 
 	void addListener(ComListener* listener);
 	void removeListener(ComListener* listener);
