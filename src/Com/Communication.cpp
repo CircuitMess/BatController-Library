@@ -45,13 +45,17 @@ void Communication::processPacket(const ControlPacket& packet){
 		return;
 	}
 
-	WithListeners<ComListener>::iterateListeners([packet](ComListener* listener){
+	WithListeners<ComListener>::iterateListeners([packet, this](ComListener* listener){
 		switch(packet.type){
 			case ComType::Battery:
 				listener->onBattery(packet.data, packet.data == UINT8_MAX);
 				break;
 			case ComType::SignalStrength:
-				listener->onSignalStrength(packet.data);
+				if(mode == ComMode::Direct){
+					listener->onSignalStrength(packet.data);
+				}else if(mode == ComMode::External){
+					listener->onSignalStrength(std::min(this->getSignalStrength(), packet.data));
+				}
 				break;
 			default:
 				break;
