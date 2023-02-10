@@ -58,6 +58,7 @@ private:
 	bool isWiFiConnected() override;
 
 	void processPacket(const ControlPacket& packet) override;
+	uint8_t getSignalStrength();
 
 	AsyncServer* server = nullptr;
 
@@ -65,6 +66,9 @@ private:
 	std::function<void(bool)> shutdownCallback = nullptr;
 	uint32_t ackTimer = 0;
 	bool ackWait = false;
+
+	static constexpr int8_t MaxSS = -50;
+	static constexpr int8_t MinSS = -90;
 
 	ComMode mode = ComMode::Direct;
 };

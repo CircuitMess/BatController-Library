@@ -1,5 +1,7 @@
 #include "Communication.h"
 #include <NetworkConfig.h>
+#include <esp_wifi_types.h>
+#include <esp_wifi.h>
 
 Communication::Communication(){
 	WithListeners<ComListener>::reserve(16);
@@ -154,4 +156,16 @@ void Communication::setMode(ComMode mode){
 	}
 	this->mode = mode;
 	begin();
+}
+
+uint8_t Communication::getSignalStrength(){
+	wifi_ap_record_t info;
+	uint8_t percentage = 0;
+
+	if(esp_wifi_sta_get_ap_info(&info) == ESP_OK){
+		auto con = constrain(info.rssi, MinSS, MaxSS);
+		percentage = map(con, MinSS, MaxSS, 0, 100);
+	}
+
+	return percentage;
 }
