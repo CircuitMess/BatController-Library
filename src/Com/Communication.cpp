@@ -148,6 +148,11 @@ void Communication::sendDance(DanceType danceIndex){
 	sendPacket(packet);
 }
 
+void Communication::sendOverrideSound(bool manual){
+	ControlPacket packet{ ComType::OverrideSound, manual};
+	sendPacket(packet);
+}
+
 void Communication::onLoop(uint micros){
 	signalStrengthTime += micros;
 
