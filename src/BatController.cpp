@@ -5,6 +5,7 @@
 #include "Settings.h"
 #include "BatteryService.h"
 #include <WiFi.h>
+#include <esp_wifi.h>
 
 BatControllerImpl BatController;
 BatteryService Battery;
@@ -116,9 +117,10 @@ void BatControllerImpl::shutdown() {
        fadeOut();
     }
 
-    adc_power_off();
     WiFi.disconnect(true);
     WiFi.mode(WIFI_OFF);
+	esp_wifi_stop();
+	adc_power_off();
 
     esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_SLOW_MEM, ESP_PD_OPTION_OFF);
     esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_FAST_MEM, ESP_PD_OPTION_OFF);
