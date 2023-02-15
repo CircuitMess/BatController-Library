@@ -1,5 +1,7 @@
 #include "Communication.h"
 #include <NetworkConfig.h>
+#include <esp_wifi_types.h>
+#include <esp_wifi.h>
 
 Communication::Communication(){
 	WithListeners<ComListener>::reserve(16);
@@ -43,13 +45,17 @@ void Communication::processPacket(const ControlPacket& packet){
 		return;
 	}
 
-	WithListeners<ComListener>::iterateListeners([packet](ComListener* listener){
+	WithListeners<ComListener>::iterateListeners([packet, this](ComListener* listener){
 		switch(packet.type){
 			case ComType::Battery:
 				listener->onBattery(packet.data, packet.data == UINT8_MAX);
 				break;
 			case ComType::SignalStrength:
-				listener->onSignalStrength(packet.data);
+				if(mode == ComMode::Direct){
+					listener->onSignalStrength(packet.data);
+				}else if(mode == ComMode::External){
+					listener->onSignalStrength(std::min(this->getSignalStrength(), packet.data));
+				}
 				break;
 			default:
 				break;
@@ -159,4 +165,16 @@ void Communication::setMode(ComMode mode){
 	}
 	this->mode = mode;
 	begin();
+}
+
+uint8_t Communication::getSignalStrength(){
+	wifi_ap_record_t info;
+	uint8_t percentage = 0;
+
+	if(esp_wifi_sta_get_ap_info(&info) == ESP_OK){
+		auto con = constrain(info.rssi, MinSS, MaxSS);
+		percentage = map(con, MinSS, MaxSS, 0, 100);
+	}
+
+	return percentage;
 }
