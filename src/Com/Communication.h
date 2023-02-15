@@ -67,6 +67,9 @@ private:
 	void onLoop(uint micros) override;
 	bool isWiFiConnected() override;
 
+	void onConnect() override;
+	void onDisconnect() override;
+
 	void processPacket(const ControlPacket& packet) override;
 	uint8_t getSignalStrength();
 
@@ -81,6 +84,10 @@ private:
 	static constexpr int8_t MinSS = -90;
 
 	ComMode mode = ComMode::Direct;
+
+	uint8_t signalStrengthReceived = 0;
+	uint32_t signalStrengthTime = 0;
+	static constexpr uint32_t signalStrengthTimeout = 5000000;
 };
 
 extern Communication Com;
