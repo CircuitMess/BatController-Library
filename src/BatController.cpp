@@ -102,6 +102,7 @@ void BatControllerImpl::initPWM() {
 
 void BatControllerImpl::deinitPWM() {
     ledcDetachPin(PIN_BL);
+	pinMode(PIN_BL, OUTPUT);
     digitalWrite(PIN_BL, HIGH);
     pwmInited = false;
 }
