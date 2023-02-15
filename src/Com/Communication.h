@@ -50,6 +50,15 @@ public:
 	void sendUnderlights(uint8_t color);
 	void sendSoundEffect(uint8_t sample);
 	void sendOverrideSound(bool manual);
+	/**
+	 * Send duration after which all Motors functions will be locked until a MotorsTimeoutClear packet is received
+	 * @param timeout Duration of timeout, increment is 100ms
+	 */
+	void sendMotorsTimeout(uint8_t timeout);
+	/**
+	 * Unlocks Motors functions that could have been blocked by a MotorsTimeout packet
+	 */
+	void sendMotorsTimeoutClear();
 
 	void addListener(ComListener* listener);
 	void removeListener(ComListener* listener);
@@ -62,6 +71,7 @@ private:
 	void onDisconnect() override;
 
 	void processPacket(const ControlPacket& packet) override;
+	uint8_t getSignalStrength();
 
 	AsyncServer* server = nullptr;
 
@@ -69,6 +79,9 @@ private:
 	std::function<void(bool)> shutdownCallback = nullptr;
 	uint32_t ackTimer = 0;
 	bool ackWait = false;
+
+	static constexpr int8_t MaxSS = -50;
+	static constexpr int8_t MinSS = -90;
 
 	ComMode mode = ComMode::Direct;
 

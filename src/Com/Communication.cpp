@@ -1,5 +1,7 @@
 #include "Communication.h"
 #include <NetworkConfig.h>
+#include <esp_wifi_types.h>
+#include <esp_wifi.h>
 
 Communication::Communication(){
 	WithListeners<ComListener>::reserve(16);
@@ -55,13 +57,17 @@ void Communication::processPacket(const ControlPacket& packet){
 		signalStrengthReceived++;
 	}
 
-	WithListeners<ComListener>::iterateListeners([packet](ComListener* listener){
+	WithListeners<ComListener>::iterateListeners([packet, this](ComListener* listener){
 		switch(packet.type){
 			case ComType::Battery:
 				listener->onBattery(packet.data, packet.data == UINT8_MAX);
 				break;
 			case ComType::SignalStrength:
-				listener->onSignalStrength(packet.data);
+				if(mode == ComMode::Direct){
+					listener->onSignalStrength(packet.data);
+				}else if(mode == ComMode::External){
+					listener->onSignalStrength(std::min(this->getSignalStrength(), packet.data));
+				}
 				break;
 			default:
 				break;
@@ -149,7 +155,17 @@ void Communication::sendDance(DanceType danceIndex){
 }
 
 void Communication::sendOverrideSound(bool manual){
-	ControlPacket packet{ ComType::OverrideSound, manual};
+	ControlPacket packet{ ComType::OverrideSound, manual };
+	sendPacket(packet);
+}
+
+void Communication::sendMotorsTimeout(uint8_t timeout){
+	ControlPacket packet{ ComType::MotorsTimeout, timeout };
+	sendPacket(packet);
+}
+
+void Communication::sendMotorsTimeoutClear(){
+	ControlPacket packet{ ComType::MotorsTimeoutClear, 0 };
 	sendPacket(packet);
 }
 
@@ -183,4 +199,16 @@ void Communication::onConnect(){
 void Communication::onDisconnect(){
 	signalStrengthReceived = 0;
 	signalStrengthTime = 0;
+}
+
+uint8_t Communication::getSignalStrength(){
+	wifi_ap_record_t info;
+	uint8_t percentage = 0;
+
+	if(esp_wifi_sta_get_ap_info(&info) == ESP_OK){
+		auto con = constrain(info.rssi, MinSS, MaxSS);
+		percentage = map(con, MinSS, MaxSS, 0, 100);
+	}
+
+	return percentage;
 }
