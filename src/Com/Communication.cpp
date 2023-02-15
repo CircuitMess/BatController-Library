@@ -137,13 +137,23 @@ void Communication::sendShutdown(std::function<void(bool)> callback){
 	shutdownCallback = callback;
 }
 
-void Communication::sendDance(DanceType danceIndex) {
-    ControlPacket packet{ ComType::Dance, (uint8_t)danceIndex };
-    sendPacket(packet);
+void Communication::sendDance(DanceType danceIndex){
+	ControlPacket packet{ ComType::Dance, (uint8_t) danceIndex };
+	sendPacket(packet);
 }
 
 void Communication::sendOverrideSound(bool manual){
-	ControlPacket packet{ ComType::OverrideSound, manual};
+	ControlPacket packet{ ComType::OverrideSound, manual };
+	sendPacket(packet);
+}
+
+void Communication::sendMotorsTimeout(uint8_t timeout){
+	ControlPacket packet{ ComType::MotorsTimeout, timeout };
+	sendPacket(packet);
+}
+
+void Communication::sendMotorsTimeoutClear(){
+	ControlPacket packet{ ComType::MotorsTimeoutClear, 0 };
 	sendPacket(packet);
 }
 

@@ -44,12 +44,21 @@ public:
 	void sendSettingsSound();
 	void sendDisconnectRequest();
 	void sendShutdown(std::function<void(bool)> callback);
-    void sendDance(DanceType danceIndex);
+	void sendDance(DanceType danceIndex);
 	void sendHeadlights(uint8_t val);
 	void sendTaillights(uint8_t val);
 	void sendUnderlights(uint8_t color);
 	void sendSoundEffect(uint8_t sample);
 	void sendOverrideSound(bool manual);
+	/**
+	 * Send duration after which all Motors functions will be locked until a MotorsTimeoutClear packet is received
+	 * @param timeout Duration of timeout, increment is 100ms
+	 */
+	void sendMotorsTimeout(uint8_t timeout);
+	/**
+	 * Unlocks Motors functions that could have been blocked by a MotorsTimeout packet
+	 */
+	void sendMotorsTimeoutClear();
 
 	void addListener(ComListener* listener);
 	void removeListener(ComListener* listener);
