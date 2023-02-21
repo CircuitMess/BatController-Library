@@ -50,6 +50,7 @@ public:
 	void sendUnderlights(uint8_t color);
 	void sendSoundEffect(uint8_t sample);
 	void sendOverrideSound(bool manual);
+	void sendIdleSound(bool toggle);
 	/**
 	 * Send duration after which all Motors functions will be locked until a MotorsTimeoutClear packet is received
 	 * @param timeout Duration of timeout, increment is 100ms
