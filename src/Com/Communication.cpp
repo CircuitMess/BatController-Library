@@ -169,6 +169,11 @@ void Communication::sendMotorsTimeoutClear(){
 	sendPacket(packet);
 }
 
+void Communication::sendIdleSound(bool toggle){
+	ControlPacket packet{ ComType::IdleSounds, toggle };
+	sendPacket(packet);
+}
+
 void Communication::onLoop(uint micros){
 	signalStrengthTime += micros;
 
