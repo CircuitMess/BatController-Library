@@ -93,8 +93,10 @@ void Communication::sendVolume(uint8_t percent){
 	sendPacket(packet);
 }
 
-void Communication::sendDriveDir(uint8_t direction){
-	ControlPacket packet{ ComType::DriveDir, direction };
+void Communication::sendDriveDir(uint8_t direction, uint8_t speed){
+	uint8_t code = direction & 0b1111;
+	code |= (speed << 4);
+	ControlPacket packet{ ComType::DriveDir, code };
 	sendPacket(packet);
 }
 
