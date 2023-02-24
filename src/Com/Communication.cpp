@@ -69,8 +69,8 @@ void Communication::processPacket(const ControlPacket& packet){
 					listener->onSignalStrength(std::min(this->getSignalStrength(), packet.data));
 				}
 				break;
-			case ComType::CameraError:
-				listener->onCameraError(packet.data);
+			case ComType::Error:
+				listener->onError((BatError) packet.data);
 				break;
 			default:
 				break;
