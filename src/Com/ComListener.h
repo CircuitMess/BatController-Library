@@ -1,6 +1,7 @@
 #ifndef BATCONTROLLER_LIBRARY_COMLISTENER_H
 #define BATCONTROLLER_LIBRARY_COMLISTENER_H
 
+#include <Error.h>
 
 class ComListener {
 public:
@@ -8,7 +9,7 @@ public:
 
 	virtual void onSignalStrength(uint8_t percent){};
 
-	virtual void onCameraError(uint8_t errorCode){};
+	virtual void onError(BatError error){};
 };
 
 
