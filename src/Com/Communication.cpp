@@ -190,6 +190,13 @@ void Communication::sendIdleSound(bool toggle){
 }
 
 void Communication::onLoop(uint micros){
+
+	heartbeatCounter += micros;
+	if(heartbeatCounter >= HeartbeatInterval){
+		heartbeatCounter = 0;
+		sendHeartbeat();
+	}
+
 	signalStrengthTime += micros;
 
 	if(!ackWait) return;
@@ -201,15 +208,6 @@ void Communication::onLoop(uint micros){
 	}
 }
 
-void Communication::setMode(ComMode mode){
-	if(this->mode == mode) return;
-
-	if(isConnected()){
-		end();
-	}
-	this->mode = mode;
-	begin();
-}
 
 void Communication::onConnect(){
 	signalStrengthReceived = 0;
@@ -231,4 +229,9 @@ uint8_t Communication::getSignalStrength(){
 	}
 
 	return percentage;
+}
+
+void Communication::sendHeartbeat(){
+	ControlPacket packet{ ComType::ControllerBeat, 0 };
+	sendPacket(packet);
 }
