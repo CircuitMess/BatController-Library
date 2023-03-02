@@ -43,7 +43,7 @@ bool Communication::isWiFiConnected(){
 		}
 	}else if(mode == ComMode::External){
 		if(signalStrengthTime < signalStrengthTimeout){
-			if(!WiFi.isConnected()) return WiFi.isConnected();
+			return WiFi.isConnected();
 		}else{
 			bool signalStrengthCheck = (signalStrengthReceived > 0);
 			signalStrengthTime = 0;
@@ -53,7 +53,6 @@ bool Communication::isWiFiConnected(){
 
 			return WiFi.isConnected() && signalStrengthCheck;
 		}
-		return WiFi.isConnected();
 	}
 }
 
