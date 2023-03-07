@@ -10,6 +10,8 @@
 BatControllerImpl BatController;
 BatteryService Battery;
 Communication Com;
+VibroModule vibro;
+AcceleroModule accelero;
 
 BatControllerImpl::BatControllerImpl() : display(160, 128, -1, -3){
 }
