@@ -11,6 +11,11 @@ public:
 
 	void setVibrating(bool on);
 	void setLEDFill(uint8_t percentage);
+	/**
+	 * @param index LED index starting from bottom to top.
+	 * @param value 0-255; 0 - off, 255 - brightest
+	 */
+	void setLED(uint8_t index, uint8_t value);
 
 protected:
 	void init() override;

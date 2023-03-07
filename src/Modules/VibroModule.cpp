@@ -67,4 +67,13 @@ uint8_t VibroModule::mapPin(uint8_t led){
 	else if(led <= 11) return 11 - led;
 	else return 23 - led;
 }
+
+void VibroModule::setLED(uint8_t index, uint8_t value){
+	float fp = (float) value / 255.0f;
+	fp *= 0.2f;
+	fp = pow(fp, 2);
+	value = fp * 255.0f;
+	aw9523.dim(mapPin(index), value);
+	push = true;
+}
 //pins bottom to top: 15, 14, 13, 12, 7, 6, 5, 4, 3, 2, 1, 0, 11, 10, 9
