@@ -10,10 +10,13 @@ Module::~Module(){
 }
 
 void Module::begin(){
+	checkConnection();
+
 	if(isConnected()){
 		init();
 		transmissionCounter = 0;
 	}
+
 	LoopManager::addListener(this);
 }
 

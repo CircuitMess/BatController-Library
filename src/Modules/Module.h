@@ -7,11 +7,13 @@ class Module : private LoopListener {
 public:
 	explicit Module(const uint8_t& addr);
 	~Module() override;
+
 	/**
 	 * Attempt connection and initialize module.
 	 */
 	void begin();
 	void end();
+
 	[[nodiscard]] bool isConnected() const;
 
 protected:
