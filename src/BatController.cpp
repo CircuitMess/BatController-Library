@@ -10,6 +10,8 @@
 BatControllerImpl BatController;
 BatteryService Battery;
 Communication Com;
+VibroModule vibro;
+AcceleroModule accelero;
 
 BatControllerImpl::BatControllerImpl() : display(160, 128, -1, -3){
 }
@@ -32,6 +34,9 @@ void BatControllerImpl::begin(bool backlight) {
 
 	input.preregisterButtons({ BTN_UP, BTN_DOWN, BTN_LEFT, BTN_RIGHT, BTN_A, BTN_B, BTN_C });
 	LoopManager::addListener(&input);
+
+	accelero.begin();
+	vibro.begin();
 
     if(backlight){
         fadeIn();

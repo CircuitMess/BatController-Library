@@ -9,6 +9,8 @@
 #include "BatControllerDisplay.h"
 #include "BatteryService.h"
 #include "Com/Communication.h"
+#include "Modules/VibroModule.h"
+#include "Modules/AcceleroModule.h"
 
 class BatControllerImpl {
 public:
@@ -67,5 +69,7 @@ private:
 extern BatControllerImpl BatController;
 extern BatteryService Battery;
 extern Communication Com;
+extern VibroModule vibro;
+extern AcceleroModule accelero;
 
 #endif //BATCONTROLLER_LIBRARY_BATCONTROLLER_H
