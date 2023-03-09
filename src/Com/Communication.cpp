@@ -42,7 +42,17 @@ bool Communication::isWiFiConnected(){
 			return (WiFi.softAPgetStationNum() == 1) && signalStrengthCheck;
 		}
 	}else if(mode == ComMode::External){
-		return WiFi.isConnected();
+		if(signalStrengthTime < signalStrengthTimeout){
+			return WiFi.isConnected();
+		}else{
+			bool signalStrengthCheck = (signalStrengthReceived > 0);
+			signalStrengthTime = 0;
+			signalStrengthReceived = 0;
+
+			if(!signalStrengthCheck) Serial.println("signal strength check failed");
+
+			return WiFi.isConnected() && signalStrengthCheck;
+		}
 	}
 }
 
@@ -180,6 +190,13 @@ void Communication::sendIdleSound(bool toggle){
 }
 
 void Communication::onLoop(uint micros){
+
+	heartbeatCounter += micros;
+	if(heartbeatCounter >= HeartbeatInterval){
+		heartbeatCounter = 0;
+		sendHeartbeat();
+	}
+
 	signalStrengthTime += micros;
 
 	if(!ackWait) return;
@@ -191,15 +208,6 @@ void Communication::onLoop(uint micros){
 	}
 }
 
-void Communication::setMode(ComMode mode){
-	if(this->mode == mode) return;
-
-	if(isConnected()){
-		end();
-	}
-	this->mode = mode;
-	begin();
-}
 
 void Communication::onConnect(){
 	signalStrengthReceived = 0;
@@ -221,4 +229,9 @@ uint8_t Communication::getSignalStrength(){
 	}
 
 	return percentage;
+}
+
+void Communication::sendHeartbeat(){
+	ControlPacket packet{ ComType::ControllerBeat, 0 };
+	sendPacket(packet);
 }
