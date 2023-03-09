@@ -16,7 +16,7 @@ void AcceleroModule::init(){
 	if(error != 0) errorOccured();
 }
 
-void AcceleroModule::transmission(uint micros){
+void AcceleroModule::transmission(){
 	Wire.beginTransmission(address);
 	Wire.write(0x28);
 	if(Wire.endTransmission() != 0){

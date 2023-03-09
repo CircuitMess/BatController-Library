@@ -19,7 +19,7 @@ public:
 
 protected:
 	void init() override;
-	void transmission(uint micros) override;
+	void transmission() override;
 
 private:
 	AW9523 aw9523;

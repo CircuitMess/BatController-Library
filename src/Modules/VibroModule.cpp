@@ -21,7 +21,7 @@ void VibroModule::init(){
 	fillPercentage = 0;
 }
 
-void VibroModule::transmission(uint micros){
+void VibroModule::transmission(){
 	if(push){
 		setVibro();
 		setLEDs();

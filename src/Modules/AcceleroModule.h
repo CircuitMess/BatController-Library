@@ -12,7 +12,7 @@ public:
 
 protected:
 	void init() override;
-	void transmission(uint micros) override;
+	void transmission() override;
 
 private:
 	glm::vec<3, int16_t> accel{};
