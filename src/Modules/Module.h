@@ -29,7 +29,7 @@ protected:
 	/**
 	 * Read/write data from module, called periodically.
 	 */
-	virtual void transmission(uint micros) = 0;
+	virtual void transmission() = 0;
 	const uint8_t address = 0;
 
 private:

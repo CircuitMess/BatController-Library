@@ -8,6 +8,9 @@ void VibroModule::init(){
 		errorOccured();
 		return;
 	}
+
+	vibro = false;
+
 	for(int i = 0; i < 16; ++i){
 		if(i == VibroPin){
 			aw9523.pinMode(VibroPin, AW9523::OUT);
