@@ -78,7 +78,7 @@ private:
 	static constexpr int8_t MinSS = -90;
 
 
-	uint8_t signalStrengthReceived = 0;
+	uint32_t signalStrengthReceived = 0;
 	uint32_t signalStrengthTime = 0;
 	static constexpr uint32_t signalStrengthTimeout = 5000000;
 
